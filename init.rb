@@ -9,9 +9,14 @@ Redmine::Plugin.register :redmine_gantt_tweak do
   name 'Redmine Gantt Tweak plugin'
   author 'sk-ys'
   description 'This is a plugin for Redmine'
-  version '0.0.1'
+  version '0.0.2'
   url 'https://github.com/sk-ys/redmine_gantt_tweak'
   author_url 'https://github.com/sk-ys'
 
-  settings default: { 'month_shift' => 0 }, partial: 'settings/redmine_gantt_tweak/general'
+  settings default: { '0' => { 'month_shift' => '0' } },
+           partial: 'settings/gantt_tweak/general'
+
+  project_module :gantt_tweak do
+    permission :manage_gantt_tweak , { gantt_tweak_setting: [ :edit ] }, require: :member
+  end
 end

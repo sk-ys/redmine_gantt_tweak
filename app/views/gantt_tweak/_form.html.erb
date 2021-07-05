@@ -1,0 +1,10 @@
+<%= form_tag gantt_tweak_update_path(format: :js), remote: true, method: :put do %>
+<div class="box tabular settings">
+<p>
+  <label>month shift</label>
+  <%= hidden_field_tag "project_id", @project.id %>
+  <%= number_field_tag "month_shift", @settings[@project.id.to_s][:month_shift], step: 1 %>
+</p>
+</div>
+<%= submit_tag l(:button_save) %>
+<% end %>

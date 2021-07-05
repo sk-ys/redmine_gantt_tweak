@@ -1,0 +1,14 @@
+<% if @settings['0'].blank? %>
+  <% @settings['0'] = {'month_shift': '0'} %>
+<% end %>
+
+<p>
+  <label>month shift</label>
+  <%= number_field_tag 'settings[0][month_shift]', @settings['0'][:month_shift], step: 1 %>
+</p>
+
+  <% @settings.each do |key, value| %>
+    <% if key != '0' %>
+      <%= hidden_field_tag 'settings[' + key + '][month_shift]', @settings[key][:month_shift] %>
+    <% end %>
+  <% end %>
