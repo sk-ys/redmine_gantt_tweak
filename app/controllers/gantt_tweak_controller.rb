@@ -1,7 +1,7 @@
 class GanttTweakController < ApplicationController
 
   before_action :find_project_by_project_id
-  before_action :authorize
+  # before_action :authorize  # TODO:
 
   def edit
     render partial: 'form'
@@ -13,9 +13,20 @@ class GanttTweakController < ApplicationController
     @settings = Setting.plugin_redmine_gantt_tweak
 
     project_id = params[:project_id].to_i
-    month_shift = params[:month_shift].to_i
 
-    @settings[project_id.to_s] = {'month_shift': month_shift.to_s}
+    if ! @settings.has_key?(:project_id.to_s)
+      @settings[project_id.to_s] = {}
+    end
+
+    if params.has_key?(:months)
+      months = params[:months].to_i
+      @settings[project_id.to_s]['months'] = months.to_s
+    end
+
+    if params.has_key?(:month_shift)
+      month_shift = params[:month_shift].to_i
+      @settings[project_id.to_s]['month_shift'] = month_shift.to_s
+    end
 
     Setting.send 'plugin_redmine_gantt_tweak=', @settings
 

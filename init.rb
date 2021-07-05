@@ -13,7 +13,7 @@ Redmine::Plugin.register :redmine_gantt_tweak do
   url 'https://github.com/sk-ys/redmine_gantt_tweak'
   author_url 'https://github.com/sk-ys'
 
-  settings default: { '0' => { 'month_shift' => '0' } },
+  settings default: { '0' => { 'months' => '3', 'month_shift' => '0' } },
            partial: 'settings/gantt_tweak/general'
 
   project_module :gantt_tweak do

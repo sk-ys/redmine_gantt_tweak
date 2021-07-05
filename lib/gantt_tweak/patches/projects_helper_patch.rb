@@ -13,6 +13,12 @@ module GanttTweak
             @settings[@project.id.to_s] = Setting.plugin_redmine_gantt_tweak['0']
           end
 
+          Setting.plugin_redmine_gantt_tweak['0'].each do |key, value|
+            if (! @settings[@project.id.to_s].has_key?(key)) || @settings[@project.id.to_s][key].blank?
+              @settings[@project.id.to_s][key] = Setting.plugin_redmine_gantt_tweak['0'][key]
+            end
+          end
+
           Rails.logger.info @settings
 
           tabs << {
