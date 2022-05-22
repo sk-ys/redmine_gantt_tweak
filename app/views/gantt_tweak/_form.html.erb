@@ -3,12 +3,12 @@
 <p>
   <label>months</label>
   <%= hidden_field_tag "project_id", @project.id %>
-  <%= number_field_tag "months", @settings[@project.id.to_s][:months], step: 1, min: 1%>
+  <%= number_field_tag "months", @settings[@project.id.to_s]['months'], step: 1, min: 1 %>
 </p>
 <p>
   <label>month shift</label>
   <%= hidden_field_tag "project_id", @project.id %>
-  <%= number_field_tag "month_shift", @settings[@project.id.to_s][:month_shift], step: 1 %>
+  <%= number_field_tag "month_shift", @settings[@project.id.to_s]['month_shift'], step: 1 %>
 </p>
 </div>
 <%= submit_tag l(:button_save) %>
