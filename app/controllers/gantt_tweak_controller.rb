@@ -8,8 +8,6 @@ class GanttTweakController < ApplicationController
   end
 
   def update
-    Rails.logger.info params
-
     @settings = Setting.plugin_redmine_gantt_tweak
 
     project_id = params[:project_id].to_i
@@ -32,10 +30,8 @@ class GanttTweakController < ApplicationController
 
     respond_to do |format|
       format.html {
-        redirect_back(fallback_location: '/')
-      }
-      format.js {
-        render json: ''
+        flash[:notice] = l(:notice_successful_update)
+        redirect_to settings_project_path(@project, params[:tab])
       }
     end
   end
