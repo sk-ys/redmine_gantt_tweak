@@ -8,11 +8,16 @@
     <label>month shift</label>
     <%= number_field_tag 'settings[0][month_shift]', @settings['0'][:month_shift], step: 1 %>
   </p>
+  <p>
+    <label>subject width</label>
+    <%= number_field_tag 'settings[0][subject_width]', @settings['0'][:subject_width], step: 10, min: 10 %>
+  </p>
 
   <% @settings.each do |key, value| %>
     <% if key != '0' %>
       <%= hidden_field_tag "settings[#{key}][months]", @settings[key][:months] %>
       <%= hidden_field_tag "settings[#{key}][month_shift]", @settings[key][:month_shift] %>
+      <%= hidden_field_tag "settings[#{key}][subject_width]", @settings[key][:subject_width] %>
     <% end %>
   <% end %>
 </div>

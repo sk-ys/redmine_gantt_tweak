@@ -26,6 +26,11 @@ class GanttTweakController < ApplicationController
       @settings[project_id.to_s][:month_shift] = month_shift.to_s
     end
 
+    if params.has_key?(:subject_width)
+      subject_width = params[:subject_width].to_i
+      @settings[project_id.to_s][:subject_width] = subject_width.to_s
+    end
+    
     Setting.send 'plugin_redmine_gantt_tweak=', @settings
 
     respond_to do |format|
