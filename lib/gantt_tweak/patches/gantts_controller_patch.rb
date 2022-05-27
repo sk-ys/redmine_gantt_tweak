@@ -13,9 +13,6 @@ module GanttTweak
           def show_with_tweak
             if @project.blank? || (! @project.module_enabled?(:gantt_tweak))
               settings = Setting.plugin_redmine_gantt_tweak['0']
-              if settings.blank?
-                settings = {'months': '6', 'month_shift': '0'}
-              end
             else
               settings = Setting.plugin_redmine_gantt_tweak[@project.id.to_s]
               if settings.blank?
@@ -24,14 +21,14 @@ module GanttTweak
             end
 
             if ! params.has_key?(:months)
-              months = settings['months'].to_i
+              months = settings[:months].to_i
               if months.present?
                 params[:months] = months
               end
             end
 
             if ! params.has_key?(:month)
-              month_shift = settings['month_shift'].to_i
+              month_shift = settings[:month_shift].to_i
               if month_shift.present?
                 month = Date.today.strftime("%m").to_i + month_shift
                 params[:year] = Date.today.strftime("%Y").to_i + (month/12).floor

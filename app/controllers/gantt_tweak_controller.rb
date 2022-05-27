@@ -18,12 +18,12 @@ class GanttTweakController < ApplicationController
 
     if params.has_key?(:months)
       months = params[:months].to_i
-      @settings[project_id.to_s]['months'] = months.to_s
+      @settings[project_id.to_s][:months] = months.to_s
     end
 
     if params.has_key?(:month_shift)
       month_shift = params[:month_shift].to_i
-      @settings[project_id.to_s]['month_shift'] = month_shift.to_s
+      @settings[project_id.to_s][:month_shift] = month_shift.to_s
     end
 
     Setting.send 'plugin_redmine_gantt_tweak=', @settings
