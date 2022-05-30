@@ -14,18 +14,17 @@ module GanttTweak
 
       def view_layouts_base_html_head_gantts(context)
         project = context[:project]
-        return if project.blank?
+        if project.present?
+          if Setting.plugin_redmine_gantt_tweak.has_key?(project.id.to_s)
+            context[:subject_width] =
+              Setting.plugin_redmine_gantt_tweak[project.id.to_s][:subject_width]
+          end
+        end
         
-        settings = Setting.plugin_redmine_gantt_tweak[project.id.to_s]
-        if settings.blank?
-          settings = Setting.plugin_redmine_gantt_tweak['0']
+        if context[:subject_width].blank?
+          context[:subject_width] =
+            Setting.plugin_redmine_gantt_tweak['0'][:subject_width]
         end
-
-        subject_width = settings[:subject_width]
-        if subject_width.blank?
-          subject_width = Setting.plugin_redmine_gantt_tweak['0'][:subject_width]
-        end
-        context[:subject_width] = subject_width
 
         context[:hook_caller].send(:render, {
           partial: '/gantt_tweak/hooks/view_layouts_base_html_head_gantts',
