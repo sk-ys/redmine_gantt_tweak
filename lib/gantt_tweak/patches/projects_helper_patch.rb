@@ -19,8 +19,6 @@ module GanttTweak
             end
           end
 
-          Rails.logger.info @settings
-
           tabs << {
             name: 'gantt_tweak',
             partial: '/gantt_tweak/form',
