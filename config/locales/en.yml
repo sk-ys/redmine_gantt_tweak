@@ -1,2 +1,5 @@
 en:
   label_gantt_tweak: gantt tweak
+  label_gantt_tweak_number_of_months: number of months
+  label_gantt_tweak_offset_months: offset months
+  label_gantt_tweak_subject_width: subject width

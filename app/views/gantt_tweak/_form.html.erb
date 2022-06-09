@@ -1,15 +1,15 @@
 <%= form_tag gantt_tweak_update_path(format: :html), method: :put do %>
   <div class="box tabular settings">
     <p>
-      <label>months</label>
+      <label><%= l(:label_gantt_tweak_number_of_months) %></label>
       <%= number_field_tag "months", @settings[@project.id.to_s][:months], step: 1, min: 1 %>
     </p>
     <p>
-      <label>month shift</label>
+      <label><%= l(:label_gantt_tweak_offset_months) %></label>
       <%= number_field_tag "month_shift", @settings[@project.id.to_s][:month_shift], step: 1 %>
     </p>
     <p>
-      <label>subject width</label>
+      <label><%= l(:label_gantt_tweak_subject_width) %></label>
       <%= number_field_tag "subject_width", @settings[@project.id.to_s][:subject_width], step: 10, min: 10 %>
     </p>
   </div>
