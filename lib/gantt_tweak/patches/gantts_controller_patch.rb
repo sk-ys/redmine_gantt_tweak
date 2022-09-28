@@ -28,9 +28,9 @@ module GanttTweak
             end
 
             if ! params.has_key?(:month)
-              month_shift = settings[:month_shift].to_i
-              if month_shift.present?
-                month = Date.today.strftime("%m").to_i + month_shift
+              offset_months = settings[:offset_months].to_i
+              if offset_months.present?
+                month = Date.today.strftime("%m").to_i + offset_months
                 params[:year] = Date.today.strftime("%Y").to_i + (month/12).floor
                 params[:month] = month % 12
               end

@@ -21,9 +21,9 @@ class GanttTweakController < ApplicationController
       @settings[project_id.to_s][:months] = months.to_s
     end
 
-    if params.has_key?(:month_shift)
-      month_shift = params[:month_shift].to_i
-      @settings[project_id.to_s][:month_shift] = month_shift.to_s
+    if params.has_key?(:offset_months)
+      offset_months = params[:offset_months].to_i
+      @settings[project_id.to_s][:offset_months] = offset_months.to_s
     end
 
     if params.has_key?(:subject_width)

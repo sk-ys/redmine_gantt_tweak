@@ -6,7 +6,7 @@
     </p>
     <p>
       <label><%= l(:label_gantt_tweak_offset_months) %></label>
-      <%= number_field_tag "month_shift", @settings[@project.id.to_s][:month_shift], step: 1 %>
+      <%= number_field_tag "offset_months", @settings[@project.id.to_s][:offset_months], step: 1 %>
     </p>
     <p>
       <label><%= l(:label_gantt_tweak_subject_width) %></label>

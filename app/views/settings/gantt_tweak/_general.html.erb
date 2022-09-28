@@ -6,7 +6,7 @@
   </p>
   <p>
     <label><%= l(:label_gantt_tweak_offset_months) %></label>
-    <%= number_field_tag 'settings[0][month_shift]', @settings['0'][:month_shift], step: 1 %>
+    <%= number_field_tag 'settings[0][offset_months]', @settings['0'][:offset_months], step: 1 %>
   </p>
   <p>
     <label><%= l(:label_gantt_tweak_subject_width) %></label>
@@ -16,7 +16,7 @@
   <% @settings.each do |key, value| %>
     <% if key != '0' %>
       <%= hidden_field_tag "settings[#{key}][months]", @settings[key][:months] %>
-      <%= hidden_field_tag "settings[#{key}][month_shift]", @settings[key][:month_shift] %>
+      <%= hidden_field_tag "settings[#{key}][offset_months]", @settings[key][:offset_months] %>
       <%= hidden_field_tag "settings[#{key}][subject_width]", @settings[key][:subject_width] %>
     <% end %>
   <% end %>
