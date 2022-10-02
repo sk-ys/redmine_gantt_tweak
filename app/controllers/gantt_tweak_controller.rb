@@ -26,6 +26,11 @@ class GanttTweakController < ApplicationController
       @settings[project_id.to_s][:offset_months] = offset_months.to_s
     end
 
+    if params.has_key?(:zoom)
+      zoom = params[:zoom].to_i
+      @settings[project_id.to_s][:zoom] = zoom.to_s
+    end
+
     if params.has_key?(:subject_width)
       subject_width = params[:subject_width].to_i
       @settings[project_id.to_s][:subject_width] = subject_width.to_s

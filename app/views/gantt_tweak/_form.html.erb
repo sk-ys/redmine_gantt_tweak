@@ -9,6 +9,10 @@
       <%= number_field_tag "offset_months", @settings[@project.id.to_s][:offset_months], step: 1 %>
     </p>
     <p>
+      <label><%= l(:label_gantt_tweak_zoom) %></label>
+      <%= number_field_tag "zoom", @settings[@project.id.to_s][:zoom], step: 1, min: 1, max: 4 %>
+    </p>
+    <p>
       <label><%= l(:label_gantt_tweak_subject_width) %></label>
       <%= number_field_tag "subject_width", @settings[@project.id.to_s][:subject_width], step: 10, min: 10 %>
     </p>

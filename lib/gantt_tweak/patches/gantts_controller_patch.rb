@@ -35,6 +35,11 @@ module GanttTweak
                 params[:month] = month % 12
               end
             end
+
+            if ! params.has_key?(:zoom)
+              params[:zoom] = settings[:zoom].to_i
+            end
+
             show_without_tweak
           end
         end
