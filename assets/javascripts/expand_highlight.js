@@ -1,135 +1,129 @@
 window.addEventListener('DOMContentLoaded', function () {
     // config
-    var highlight_color = '#ffffdd';
-    var highlight_height = $($('div.gantt_subjects div.issue-subject')[0]).css('height');
+    let highlight_color = '#ffffdd';
+    let highlight_height =
+        $($('div.gantt_subjects div.issue-subject')[0]).css('height');
+
+    // add style in head
+    $('head').append(
+        '<style type="text/css">' +
+        '#gantt_highlight > div.hover ' +
+        '{background-color: ' + highlight_color + ';}' +
+        '</style>');
 
     // add gantt_highlight element
-    var add_elements = function () {
+    let add_elements = function () {
         if ($('#gantt_highlight').length > 0) return;
-        $('#gantt_area').prepend('<div id="gantt_highlight"></div>');
-        $('#gantt_highlight').css({
-            position: 'absolute',
-            display: 'none',
-            top: 0,
-            left: 0,
-            width: $('#gantt_area>div.gantt_hdr:first').css('width'),
-            height: highlight_height,
-            backgroundColor: highlight_color
-        });
+
+        // add dummy form to support collapse-expand function
+        let $gantt_highlight = $('<form id="gantt_highlight"></form>');
+        $('#gantt_area').prepend($gantt_highlight);
+
+        // add background highright to each tasks
+        $('div.gantt_subjects > form > div.issue-subject')
+            .each(function (i, element) {
+                let el = $(element);
+                let json = el.data('collapse-expand');
+                let number_of_rows = el.data('number-of-rows');
+                let $gantt_highlight_task =
+                    $('<div class="leaf gantt_highlight"></div>')
+                        .attr('data-collapse-expand', json.obj_id)
+                        .attr('data-number-of-rows', number_of_rows)
+                        .css({
+                            position: 'absolute',
+                            // display: 'none',
+                            top: el.css('top'),
+                            width: $('#gantt_area>div.gantt_hdr:first')
+                                .css('width'),
+                            height: highlight_height,
+                            // backgroundColor: highlight_color,
+                            zIndex: 'auto'
+                        });
+                $gantt_highlight.append($gantt_highlight_task);
+            });
     }
 
     // define update highlight function for gantt_highlight
-    var update_gantt_highlight_position = function(elem){
-        try {
-            $('#gantt_highlight').show();
-            $('#gantt_highlight').css('top', $(elem).css('top'));
-        } catch(err) {
-            $('#gantt_highlight').hide();
+    let update_gantt_highlight_state =
+        function (element, display, tag) {
+            let el = $(element);
+            let json = el.data('collapse-expand');
+            let number_of_rows = el.data('number-of-rows');
+            let obj_id = json.obj_id;
+            if (obj_id == undefined) {
+                obj_id = json;
+            }
+            let el_task_bars =
+                '#gantt_highlight > div' +
+                '[data-collapse-expand="' + obj_id + '"]' +
+                '[data-number-of-rows="' + number_of_rows + '"]';
+            $(el_task_bars).each(function (_, task) {
+                let el_task = $(task);
+                if (display === true) {
+                    el_task.addClass(tag);
+                } else {
+                    el_task.removeClass(tag);
+                }
+            });
         }
-    }
 
     // define update highlight function for issue-subject
-    var update_gantt_highlight_subject = function(issue_id, color){
+    let update_gantt_highlight_subject = function (issue_id, color) {
         try {
             $('#' + issue_id).css('background-color', color);
-        } catch(err) {
-            $('div.gantt_subjects div.issue-subject').css('background-color', '');
+        } catch (err) {
+            $('div.gantt_subjects div.issue-subject')
+                .css('background-color', '');
         }
     }
 
     // define hover event function for gantt-area-object
-    var hover_gantt_area_object = function(elem, color){
-        var issue_id = $(elem).attr('data-collapse-expand');
-        if (issue_id.indexOf('issue-')>-1) {
-            update_gantt_highlight_subject(issue_id, color);
+    let hover_gantt_area_object = function (element, color) {
+        let el = $(element);
+        let obj_id = el.attr('data-collapse-expand');
+        let is_issue = obj_id.indexOf('issue-') > -1;
+        if (is_issue) {
+            update_gantt_highlight_subject(obj_id, color);
             if (color === '') {
-                $('#gantt_highlight').hide();
+                update_gantt_highlight_state(element, false, 'hover');
             } else {
-                update_gantt_highlight_position(elem);
+                update_gantt_highlight_state(element, true, 'hover');
             }
-        } else {
-            $('#gantt_highlight').hide();
-            $('div.gantt_subjects div.issue-subject').css('background-color', '');
         }
     }
 
     // Add hover events to labels to prevent duplicate events
-    var add_hover_event_to_label = function ($elem, handlerIn, handlerOut) {
-        var label = 'expand_highlight';
+    let add_hover_event_to_label = function ($elem, handlerIn, handlerOut) {
+        let label = 'expand_highlight';
         if ($elem.data(label)) return false;
         $elem.hover(handlerIn, handlerOut);
         $elem.data(label, 1);
         return true;
     }
 
-    var add_events = function () {
+    let add_events = function () {
         // チケット項目名にマウスオーバーイベントを追加
         // set hover event for gantt-issue-subject
         add_hover_event_to_label(
             $('div.gantt_subjects div.issue-subject'),
-            function(){
-                update_gantt_highlight_position(this);
-            }, function(){  // unhover
-                $('#gantt_highlight').hide();
+            function () {
+                update_gantt_highlight_state(this, true, 'hover');
+            },
+            function () {
+                update_gantt_highlight_state(this, false, 'hover');
             });
 
         // set hover event for gantt-tooltip
         add_hover_event_to_label(
             $('#gantt_area div.tooltip'),
-            function(){
-                hover_gantt_area_object(this, highlight_color);
-            }, function(){  // unhover
-                hover_gantt_area_object(this, '');
-            });
-
-        // set hover event for gantt-task
-        $('#gantt_area div.task').css('z-index', 1);
-        add_hover_event_to_label(
-            $('#gantt_area div.task'),
-            function(){
-                hover_gantt_area_object(this, highlight_color);
-            }, function(){  // unhover
-                hover_gantt_area_object(this, '');
-            });
+            function () { hover_gantt_area_object(this, highlight_color); },
+            function () { hover_gantt_area_object(this, ''); });
     }
-    add_events();
 
-    var initialize = function () {
+    let initialize = function () {
         add_elements();
         add_events();
     }
-    
-    var set_mutation_observer = function () {
-        var timerId = null;
-        var observer_table_child_list_change =
-            new MutationObserver(function (mutations) {
-                // ignore svg
-                var flg = false;
-                for(var i=0; i<mutations.length; i++) {
-                    if (mutations[i].target.tagName !== 'svg')  {
-                        flg = true;
-                        break;
-                    }
-                }
-                if (!flg) return;
 
-                if (typeof timerId === 'number') {
-                    clearTimeout(timerId);
-                }
-                timerId = setTimeout(function () {
-                    initialize();
-                }, 1000);
-            });
-        
-        observer_table_child_list_change.observe(
-        $('table.gantt-table:first')[0], {
-            childList : true,
-            subtree: true
-        });
-    }
-
-    // initialze
-    $.when()
-        .then(initialize)
-        .then(set_mutation_observer);
+    initialize();
 });
