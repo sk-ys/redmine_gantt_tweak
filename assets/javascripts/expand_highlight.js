@@ -120,10 +120,51 @@ window.addEventListener('DOMContentLoaded', function () {
             function () { hover_gantt_area_object(this, ''); });
     }
 
+
+
     let initialize = function () {
         add_elements();
         add_events();
     }
 
-    initialize();
+    var set_mutation_observer = function () {
+        var observer_subject_selection_changed =
+            new MutationObserver(function (mutations) {
+                for(var i=0; i<mutations.length; i++) {
+                    var el = $(mutations[i].target);
+                    update_gantt_highlight_state(
+                        el,
+                        el.hasClass('context-menu-selection'),
+                        'context-menu-selection');
+                }
+            });
+
+        $('div.gantt_subjects > form > div.issue-subject.hascontextmenu').each(
+            function () {
+                observer_subject_selection_changed.observe(
+                    this,
+                    {
+                        attributes: true,
+                        attributeFilter: ['class']
+                    });
+            }
+        )
+
+        // TODO: Support for behavior when a bar is selected
+        // $('#gantt_area > form > div.tooltip.hascontextmenu').each(
+        //     function () {
+        //         observer_subject_selection_changed.observe(
+        //             this,
+        //             {
+        //                 attributes: true,
+        //                 attributeFilter: ['class']
+        //             });
+        //     }
+        // )
+    }
+
+    // initialze
+    $.when()
+        .then(initialize)
+        .then(set_mutation_observer);
 });
