@@ -4,3 +4,7 @@ en:
   label_gantt_tweak_offset_months: offset months
   label_gantt_tweak_zoom: zoom
   label_gantt_tweak_subject_width: subject width
+  label_gantt_tweak_mode: mode
+  label_gantt_tweak_fixed_year_and_month: fixed year and month
+  label_gantt_tweak_year: year
+  label_gantt_tweak_month: month

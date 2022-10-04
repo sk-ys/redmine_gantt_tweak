@@ -27,12 +27,24 @@ module GanttTweak
               end
             end
 
-            if ! params.has_key?(:month)
-              offset_months = settings[:offset_months].to_i
-              if offset_months.present?
-                month = Date.today.strftime("%m").to_i + offset_months
-                params[:year] = Date.today.strftime("%Y").to_i + (month/12).floor
-                params[:month] = month % 12
+            if !params.has_key?(:year) && !params.has_key?(:month)
+              mode = settings[:mode]
+              if mode == "fixed"
+                year = settings[:year]
+                month = settings[:month]
+                if ! params.has_key?(:year) && year.present? && year.to_i > 0
+                  params[:year] = year.to_i
+                end
+                if month.present? && month.to_i > 0 && month.to_i <= 12
+                  params[:month] = month.to_i
+                end
+              else
+                offset_months = settings[:offset_months].to_i
+                if offset_months.present?
+                  month = Date.today.strftime("%m").to_i + offset_months
+                  params[:year] = Date.today.strftime("%Y").to_i + (month/12).floor
+                  params[:month] = month % 12
+                end
               end
             end
 

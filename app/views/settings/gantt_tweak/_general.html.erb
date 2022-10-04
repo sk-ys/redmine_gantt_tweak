@@ -4,10 +4,43 @@
     <label><%= l(:label_gantt_tweak_number_of_months) %></label>
     <%= number_field_tag 'settings[0][months]', @settings['0'][:months], step: 1, min: 1 %>
   </p>
-  <p>
-    <label><%= l(:label_gantt_tweak_offset_months) %></label>
-    <%= number_field_tag 'settings[0][offset_months]', @settings['0'][:offset_months], step: 1 %>
-  </p>
+  <div style="display: flex;" class="mode_selector">
+    <p><label>
+        <%= l(:label_gantt_tweak_mode) %>
+      </label></p>
+    <div style="display: flex;">
+      <fieldset style="margin: 0 5px">
+        <legend>
+          <%= l(:label_gantt_tweak_offset_months) %>
+        </legend>
+        <%= radio_button_tag 'settings[0][mode]' , 'offset' , @settings['0'][:mode] != "fixed" ? true : false %>
+          <div>
+            <label style="margin: 0 0.5em; width: auto;">
+              <%= l(:label_gantt_tweak_offset_months) %>
+            </label>
+            <%= number_field_tag 'settings[0][offset_months]', @settings['0'][:offset_months], step: 1 %>
+          </div>
+      </fieldset>
+      <fieldset style="margin: 0 5px">
+        <legend>
+          <%= l(:label_gantt_tweak_fixed_year_and_month) %>
+        </legend>
+        <%= radio_button_tag 'settings[0][mode]' , 'fixed' , @settings['0'][:mode] == "fixed" ? true : false %>
+          <div>
+            <label style="margin: 0 0.5em; width: auto;">
+              <%= l(:label_gantt_tweak_year) %>
+            </label>
+            <%= number_field_tag 'settings[0][year]' , @settings['0'][:year], step: 1, min: 0 %>
+          </div>
+          <div>
+            <label style="margin: 0 0.5em; width: auto;">
+              <%= l(:label_gantt_tweak_month) %>
+            </label>
+            <%= number_field_tag 'settings[0][month]' , @settings['0'][:month], step: 1, min: 1, max: 12 %>
+          </div>
+      </fieldset>
+    </div>
+  </div>
   <p>
     <label><%= l(:label_gantt_tweak_zoom) %></label>
     <%= number_field_tag 'settings[0][zoom]', @settings['0'][:zoom], step: 1, min: 1, max: 4 %>
@@ -23,6 +56,9 @@
       <%= hidden_field_tag "settings[#{key}][offset_months]", @settings[key][:offset_months] %>
       <%= hidden_field_tag "settings[#{key}][zoom]", @settings[key][:zoom] %>
       <%= hidden_field_tag "settings[#{key}][subject_width]", @settings[key][:subject_width] %>
+      <%= hidden_field_tag "settings[#{key}][mode]", @settings[key][:mode] %>
+      <%= hidden_field_tag "settings[#{key}][month]", @settings[key][:month] %>
+      <%= hidden_field_tag "settings[#{key}][year]", @settings[key][:year] %>
     <% end %>
   <% end %>
 </div>

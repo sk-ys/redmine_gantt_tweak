@@ -4,3 +4,7 @@ ja:
   label_gantt_tweak_offset_months: オフセット月数
   label_gantt_tweak_zoom: 表示倍率
   label_gantt_tweak_subject_width: 題目の幅
+  label_gantt_tweak_mode: モード
+  label_gantt_tweak_fixed_year_and_month: 指定年月
+  label_gantt_tweak_year: 年
+  label_gantt_tweak_month: 月
