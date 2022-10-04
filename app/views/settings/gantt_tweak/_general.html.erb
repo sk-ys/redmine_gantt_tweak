@@ -8,7 +8,6 @@
     <label><%= l(:label_gantt_tweak_offset_months) %></label>
     <%= number_field_tag 'settings[0][offset_months]', @settings['0'][:offset_months], step: 1 %>
   </p>
-  </p>
   <p>
     <label><%= l(:label_gantt_tweak_zoom) %></label>
     <%= number_field_tag 'settings[0][zoom]', @settings['0'][:zoom], step: 1, min: 1, max: 4 %>
