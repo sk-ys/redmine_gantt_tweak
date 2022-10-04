@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Add hover events to labels to prevent duplicate events
     let add_hover_event_to_label = function ($elem, handlerIn, handlerOut) {
-        let label = 'expand_highlight';
+        let label = 'extend_highlight';
         if ($elem.data(label)) return false;
         $elem.hover(handlerIn, handlerOut);
         $elem.data(label, 1);
