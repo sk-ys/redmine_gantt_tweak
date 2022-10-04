@@ -11,8 +11,11 @@ module GanttTweak
 
         module InstanceMethods
           def show_with_tweak
-            if @project.blank? || (! @project.module_enabled?(:gantt_tweak))
+            if @project.blank?
               settings = Setting.plugin_redmine_gantt_tweak['0']
+            elsif !@project.module_enabled?(:gantt_tweak)
+              show_without_tweak
+              return
             else
               settings = Setting.plugin_redmine_gantt_tweak[@project.id.to_s]
               if settings.blank?
