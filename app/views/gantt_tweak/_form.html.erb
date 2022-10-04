@@ -1,0 +1,56 @@
+<%= form_tag gantt_tweak_update_path(format: :html), method: :put do %>
+  <div class="box tabular settings">
+    <p>
+      <label><%= l(:label_gantt_tweak_number_of_months) %></label>
+      <%= number_field_tag "months", @settings[@project.id.to_s][:months], step: 1, min: 1 %>
+    </p>
+    <div style="display: flex;" class="mode_selector">
+      <p><label>
+          <%= l(:label_gantt_tweak_mode) %>
+        </label></p>
+      <div style="display: flex;">
+        <fieldset style="margin: 0 5px">
+          <legend>
+            <%= l(:label_gantt_tweak_offset_months) %>
+          </legend>
+          <%= radio_button_tag 'mode' , 'offset' , @settings[@project.id.to_s][:mode] != "fixed" ? true : false %>
+            <div>
+              <label style="margin: 0 0.5em; width: auto;">
+                <%= l(:label_gantt_tweak_offset_months) %>
+              </label>
+              <%= number_field_tag 'offset_months', @settings[@project.id.to_s][:offset_months], step: 1 %>
+            </div>
+        </fieldset>
+        <fieldset style="margin: 0 5px">
+          <legend>
+            <%= l(:label_gantt_tweak_fixed_year_and_month) %>
+          </legend>
+          <%= radio_button_tag 'mode' , 'fixed' , @settings[@project.id.to_s][:mode] == "fixed" ? true : false %>
+            <div>
+              <label style="margin: 0 0.5em; width: auto;">
+                <%= l(:label_gantt_tweak_year) %>
+              </label>
+              <%= number_field_tag 'year' , @settings[@project.id.to_s][:year], step: 1, min: 0 %>
+            </div>
+            <div>
+              <label style="margin: 0 0.5em; width: auto;">
+                <%= l(:label_gantt_tweak_month) %>
+              </label>
+              <%= number_field_tag 'month' , @settings[@project.id.to_s][:month], step: 1, min: 1, max: 12 %>
+            </div>
+        </fieldset>
+      </div>
+    </div>
+    <p>
+      <label><%= l(:label_gantt_tweak_zoom) %></label>
+      <%= number_field_tag "zoom", @settings[@project.id.to_s][:zoom], step: 1, min: 1, max: 4 %>
+    </p>
+    <p>
+      <label><%= l(:label_gantt_tweak_subject_width) %></label>
+      <%= number_field_tag "subject_width", @settings[@project.id.to_s][:subject_width], step: 10, min: 10 %>
+    </p>
+  </div>
+  <%= hidden_field_tag "project_id", @project.id %>
+  <%= hidden_field_tag "tab", :gantt_tweak %>
+  <%= submit_tag l(:button_save) %>
+<% end %>

@@ -1,0 +1,11 @@
+<% content_for :header_tags do %>
+  <script type="text/javascript">//<![CDATA[
+  let GanttTweak = {
+    subject_width: <%= subject_width %>
+  };
+  //]]</script>
+  <%= javascript_include_tag('gantt_tweak.js',
+                             plugin: 'redmine_gantt_tweak') %>
+  <%= javascript_include_tag('extend_highlight.js',
+                             plugin: 'redmine_gantt_tweak') %>
+<% end %>
