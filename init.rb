@@ -9,7 +9,7 @@ Redmine::Plugin.register :redmine_gantt_tweak do
   name 'Redmine Gantt Tweak plugin'
   author 'sk-ys'
   description 'This is a plugin for Redmine'
-  version '0.0.3'
+  version '0.1.0'
   url 'https://github.com/sk-ys/redmine_gantt_tweak'
   author_url 'https://github.com/sk-ys'
 
