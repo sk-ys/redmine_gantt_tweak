@@ -9,6 +9,7 @@ It also includes small improvements for the Gantt chart.
 - Add settings panel in plugin settings and each project settings.
 - Extend background highlight of the Gantt chart when mouseover and clicked.
 - Display tooltip near the mouse cursor
+- Add title to selected column items
 
 
 # Supported tweakable parameters

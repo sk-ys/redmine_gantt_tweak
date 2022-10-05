@@ -40,4 +40,13 @@ window.addEventListener('DOMContentLoaded', function () {
         });
     }
     displayTooltipNearTheMouseCursor();
+
+    function addTitleToSelectedColumn() {
+        $('.gantt_selected_column_content>div').each(function (index) {
+            if (typeof $(this).attr('title') === 'undefined') {
+                $(this).attr('title', $(this).text());
+            }
+        });
+    }
+    addTitleToSelectedColumn();
 });
