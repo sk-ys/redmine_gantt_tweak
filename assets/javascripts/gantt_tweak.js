@@ -21,4 +21,23 @@ window.addEventListener('DOMContentLoaded', function () {
         var left = parseFloat($(this).css('left'));
         $(this).css('width', subject_width - left);
     });
+
+    function displayTooltipNearTheMouseCursor() {
+        $('#gantt_area > form > div.tooltip').on("mouseenter", function(e) {
+            if($(this).children('span.tip').length > 0)
+            {
+                var x = e.offsetX;
+                if (x > 0)
+                {
+                    var tipWidth = $(this).children('span.tip').width();
+                    var margin_right = 25;
+                    if (e.clientX + tipWidth > $(document).width() - margin_right) {
+                        x = ($(document).width() - tipWidth) - $(this).offset().left - margin_right;
+                    }
+                    $(this).children('span.tip').css('margin-left', x);
+                }
+            }
+        });
+    }
+    displayTooltipNearTheMouseCursor();
 });
