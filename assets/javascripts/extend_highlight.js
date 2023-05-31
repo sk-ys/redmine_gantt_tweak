@@ -166,4 +166,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // Initialize
   initialize();
+  
+  new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.addedNodes.length > 0) {
+        initialize();
+      }
+    });
+  }).observe($("table.gantt-table")[0], { childList: true });
 });

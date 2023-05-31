@@ -24,7 +24,6 @@ window.addEventListener("DOMContentLoaded", function () {
       $(this).css("width", subjectWidth - left);
     });
   }
-  setSubjectWidth();
 
   function displayTooltipNearTheMouseCursor() {
     $("#gantt_area > form > div.tooltip").on("mouseenter", function (e) {
@@ -45,7 +44,6 @@ window.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-  displayTooltipNearTheMouseCursor();
 
   function addTitleToSelectedColumn() {
     $(".gantt_selected_column_content>div").each(function () {
@@ -54,5 +52,20 @@ window.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-  addTitleToSelectedColumn();
+
+  function initialize() {
+    setSubjectWidth();
+    displayTooltipNearTheMouseCursor();
+    addTitleToSelectedColumn();
+  }
+  
+  initialize();
+
+  new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.addedNodes.length > 0) {
+        initialize();
+      }
+    });
+  }).observe($("table.gantt-table")[0], { childList: true });
 });
