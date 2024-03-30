@@ -1,15 +1,13 @@
-ActiveSupport::Reloader.to_prepare do
-  paths = '/lib/gantt_tweak/{patches/*_patch,hooks/*_hook}.rb'
-  Dir.glob(File.dirname(__FILE__) + paths).each do |file|
-    require file
-  end
+paths = '/lib/gantt_tweak/{patches/*_patch,hooks/*_hook}.rb'
+Dir.glob(File.dirname(__FILE__) + paths).each do |file|
+  require file
 end
 
 Redmine::Plugin.register :redmine_gantt_tweak do
   name 'Redmine Gantt Tweak plugin'
   author 'sk-ys'
   description 'This is a plugin for Redmine'
-  version '0.1.0'
+  version '0.1.4'
   url 'https://github.com/sk-ys/redmine_gantt_tweak'
   author_url 'https://github.com/sk-ys'
 

@@ -8,6 +8,8 @@ It also includes small improvements for the Gantt chart.
 - Allows setting of default parameters for the Gantt chart for each project.
 - Add settings panel in plugin settings and each project settings.
 - Extend background highlight of the Gantt chart when mouseover and clicked.
+- Display tooltip near the mouse cursor
+- Add title to selected column items
 
 
 # Supported tweakable parameters
