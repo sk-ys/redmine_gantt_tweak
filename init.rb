@@ -1,8 +1,6 @@
-ActiveSupport::Reloader.to_prepare do
-  paths = '/lib/gantt_tweak/{patches/*_patch,hooks/*_hook}.rb'
-  Dir.glob(File.dirname(__FILE__) + paths).each do |file|
-    require file
-  end
+paths = '/lib/gantt_tweak/{patches/*_patch,hooks/*_hook}.rb'
+Dir.glob(File.dirname(__FILE__) + paths).each do |file|
+  require file
 end
 
 Redmine::Plugin.register :redmine_gantt_tweak do
